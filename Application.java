@@ -1,6 +1,4 @@
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
@@ -25,7 +23,11 @@ public class Application
 	// 2D Canvas
 	BufferStrategy		m_BufferStrategy;	// ダブルバッファリング
 	JFrame				m_Frame;			// ウィンドウ
+
+	// ゲーム管理クラス
 	FPSManager			m_FPSManager;		// FPS管理クラス
+	SceneBuilder		m_SceneBuilder;		// シーン構築クラス
+	Scene				m_Scene;			// シーン
 
 	public Application()
 	{
@@ -46,14 +48,15 @@ public class Application
 
 			// FPS管理クラスの作成
 			m_FPSManager = new FPSManager( 60 );	// 60 fps
+
+			// シーン構築クラスの作成
+			m_SceneBuilder = new SceneBuilder();
+			// 初期シーンの構築
+			m_Scene = m_SceneBuilder.createScene( SceneBuilder.SceneItem.SCENE_STAGE );
 		}
 		catch( IllegalArgumentException e ){
 			e.printStackTrace();
 		}
-	}
-
-	private void Draw()
-	{
 	}
 
 	public void run()
@@ -73,12 +76,21 @@ public class Application
 
 					// 描画領域
 
-					Draw();
+					// 状態遷移
+					if( m_Scene.hasNextScene() ){
+						m_Scene = m_SceneBuilder.createScene( m_Scene.getNextScene() );
+						m_Scene.Init();
+					}
 
+					// シーンの更新
+					m_Scene.update();
+					// シーンの描画
+					m_Scene.draw( graphics );
+
+					// 現在のFPSを表示
 					graphics.setFont( new Font( "arial", Font.PLAIN, 12 ) );
-					graphics.setColor( Color.YELLOW );
-					graphics.drawString( "FPS : " + m_FPSManager.getFPS(), 50, 50 );
-					graphics.drawString( "Count : " + cnt, 50, 70 );
+					graphics.setColor( Color.CYAN );
+					graphics.drawString( "FPS : " + m_FPSManager.getFPS(), WINDOW_WIDTH  - 120, WINDOW_HEIGHT - 20 );
 
 					// グラフィックスをバッファに書き出す
 					m_BufferStrategy.show();
