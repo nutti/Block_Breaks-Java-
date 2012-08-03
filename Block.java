@@ -69,7 +69,7 @@ public class Block
 			for( int j = 0; j < BLOCK_ARRAY_ROW; ++j ){
 				//long info = m_Blocks[ i ][ j ];
 				graphics.setColor( Color.yellow );
-				graphics.fillRect( i * 30 + 60, j * 20 + 100, 29, 19 );
+				graphics.fillRect( Application.canvasX( i * 30 + 60 ), Application.canvasY( j * 20 + 100 ), 29, 19 );
 
 			}
 		}

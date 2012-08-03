@@ -9,7 +9,7 @@ public abstract class Scene
 	private SceneBuilder.SceneItem		m_NextScene;		// 次のシーン
 
 	// 更新
-	public abstract void update();
+	public abstract void update( InputManager manager );
 	// 描画
 	public abstract void draw( Graphics graphics );
 	// 初期化
