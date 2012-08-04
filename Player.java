@@ -3,7 +3,7 @@ import java.awt.Graphics;
 
 // プレイヤー基底クラス
 
-public abstract class Player
+public abstract class Player extends CollisionObject
 {
 
 	public abstract void draw( Graphics graphics );
