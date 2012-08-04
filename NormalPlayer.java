@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 
 public class NormalPlayer extends Player
 {
-	private Rectangle m_BoundBox;		// 衝突判定
-
 	private final static int		POSITION_Y	= 400;		// Y座標（固定）
 	private final static int		WIDTH		= 30;		// 横幅
 	private final static int		HEIGHT		= 10;		// 縦幅
@@ -17,6 +15,7 @@ public class NormalPlayer extends Player
 
 	public NormalPlayer()
 	{
+		super();
 		m_BoundBox = new Rectangle( 200, POSITION_Y, WIDTH, HEIGHT );
 	}
 
@@ -39,32 +38,25 @@ public class NormalPlayer extends Player
 		}
 	}
 
+	// ディスパッチ処理
 	public void collided( CollisionObject obj )
 	{
 		obj.processCollision( this );
 	}
 
+	// プレイヤーとの衝突処理
 	protected void processCollision( Player player )
 	{
 	}
 
+	// ボールとの衝突処理
 	protected void processCollision( Ball ball )
 	{
 	}
 
-	// 衝突したか？
-	public boolean isCollided( CollisionObject obj )
+	// ブロックとの衝突処理
+	protected void processCollision( Block block )
 	{
-		if( obj.getBoundBox().intersects( m_BoundBox ) ){
-			return true;
-		}
-
-		return false;
 	}
 
-	// 衝突判定を取得する
-	protected Rectangle getBoundBox()
-	{
-		return m_BoundBox;
-	}
 }

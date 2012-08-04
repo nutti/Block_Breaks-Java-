@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 public class Stage extends Scene
 {
-	private BlockGroup			m_Block;			// ブロック
+	private BlockGroup		m_BlockGroup;			// ブロック
 	private Player			m_Player;			// プレイヤー
 	private Ball			m_Ball;				// ボール
 
@@ -18,7 +18,7 @@ public class Stage extends Scene
 	public Stage()
 	{
 		super();
-		m_Block = new BlockGroup();
+		m_BlockGroup = new BlockGroup();
 		m_Player = new NormalPlayer();
 		m_Ball = new NormalBall();
 	}
@@ -32,6 +32,7 @@ public class Stage extends Scene
 			m_Ball.collided( m_Player );
 		}
 
+		m_BlockGroup.update( m_Ball );
 		m_Player.update( manager );
 		m_Ball.update();
 	}
@@ -39,7 +40,7 @@ public class Stage extends Scene
 	// 描画
 	public void draw( Graphics graphics )
 	{
-		m_Block.draw( graphics );
+		m_BlockGroup.draw( graphics );
 		m_Player.draw( graphics );
 		m_Ball.draw( graphics );
 

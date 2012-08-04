@@ -8,14 +8,13 @@ import java.awt.Rectangle;
 public class NormalBall extends Ball
 {
 
-	private Rectangle	m_BoundBox;	// 当たり判定
-
 	private double		m_VelocityX;		// X方向速度
 	private double		m_VelocityY;		// Y方向の速度
 
 	public NormalBall()
 	{
-		m_BoundBox = new Rectangle( 200, 70, 5, 5 );
+		super();
+		m_BoundBox = new Rectangle( 200, 70, 8, 8 );
 		m_VelocityX = 1.0;
 		m_VelocityY = 1.0;
 	}
@@ -58,7 +57,13 @@ public class NormalBall extends Ball
 	protected void processCollision( Player player )
 	{
 		// Y方向の速度を反転させる。
-		m_VelocityY = - m_VelocityY;
+		int side = getIntersectSide( player );
+		if( mostEffectedAtTop( side ) ){
+			m_VelocityY = - m_VelocityY;
+		}
+		else if( mostEffectedAtRight( side ) || mostEffectedAtLeft( side ) ){
+			m_VelocityX = - m_VelocityX;
+		}
 	}
 
 	// ボールとの衝突処理
@@ -67,20 +72,18 @@ public class NormalBall extends Ball
 		// 自身との衝突なので、無視。
 	}
 
-	// 衝突したか？
-	public boolean isCollided( CollisionObject obj )
+	// ブロックとの衝突処理
+	protected void processCollision( Block block )
 	{
-		if( obj.getBoundBox().intersects( m_BoundBox ) ){
-			return true;
+		if( block.isReflectable() ){
+			int side = getIntersectSide( block );
+			if( mostEffectedAtTop( side ) || mostEffectedAtBottom( side ) ){
+				m_VelocityY = - m_VelocityY;
+			}
+			else if( mostEffectedAtLeft( side ) || mostEffectedAtRight( side ) ){
+				m_VelocityX = - m_VelocityX;
+			}
 		}
-
-		return false;
-	}
-
-	// 衝突判定を取得する
-	protected Rectangle getBoundBox()
-	{
-		return m_BoundBox;
 	}
 
 }
