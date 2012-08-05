@@ -36,6 +36,16 @@ public class NormalPlayer extends Player
 		else if( manager.isKeepPushed( InputManager.KEY_CODE_LEFT ) ){
 			m_BoundBox.x -= VELOCITY;
 		}
+
+		// 範囲をオーバーした時の処理
+		int limitLeft = Stage.GAME_AREA_FRAME;												// 左端
+		int limitRight = Stage.GAME_AREA_FRAME + Stage.GAME_AREA_WIDTH - m_BoundBox.width * 3 / 2;		// 右端
+		if( m_BoundBox.x < limitLeft ){
+			m_BoundBox.x = limitLeft;
+		}
+		else if( m_BoundBox.x > limitRight ){
+			m_BoundBox.x = limitRight;
+		}
 	}
 
 	// ディスパッチ処理

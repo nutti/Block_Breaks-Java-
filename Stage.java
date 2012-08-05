@@ -32,9 +32,13 @@ public class Stage extends Scene
 			m_Ball.collided( m_Player );
 		}
 
+		if( manager.isKeepPushed( InputManager.KEY_CODE_ENTER ) ){
+			m_Ball.enableMovement();
+		}
+
 		m_BlockGroup.update( m_Ball );
 		m_Player.update( manager );
-		m_Ball.update();
+		m_Ball.update( m_Player );
 	}
 
 	// 描画

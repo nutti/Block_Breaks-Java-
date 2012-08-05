@@ -5,6 +5,13 @@ import java.awt.Graphics;
 
 public abstract class Ball extends CollisionObject
 {
+	protected boolean		m_Movable;			// 自由運動するか？
+
 	public abstract void draw( Graphics graphics );
-	public abstract void update();
+	public abstract boolean update( Player player );
+
+	public void enableMovement()
+	{
+		m_Movable = true;
+	}
 }

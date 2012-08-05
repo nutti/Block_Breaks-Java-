@@ -22,7 +22,7 @@ public class InputManager implements KeyListener
 	// コンストラクタ
 	public InputManager()
 	{
-		m_KeyState = new int [ 4 ];
+		m_KeyState = new int [ 5 ];
 		for( int i = 0; i < m_KeyState.length; ++i ){
 			m_KeyState[ i ] = 0;
 		}
