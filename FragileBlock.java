@@ -3,20 +3,19 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-// 通常のブロック
+// 衝突時反射しないブロック
 
-public class NormalBlock extends Block
+public class FragileBlock extends Block
 {
-
 	// コンストラクタ
-	public NormalBlock( int row, int column )
+	public FragileBlock( int row, int column )
 	{
 		super();
 		m_BoundBox = new Rectangle(	column * ( WIDTH + INTERVAL_X ) + OFFSET_X,
 									row * ( HEIGHT + INTERVAL_Y ) + OFFSET_Y,
 									WIDTH, HEIGHT );
-		m_Reflectable = true;
-		m_Score = 100;
+		m_Reflectable = false;
+		m_Score = 70;
 		m_Destroyed = false;
 	}
 
@@ -33,11 +32,19 @@ public class NormalBlock extends Block
 			return;
 		}
 
-		graphics.setColor( Color.cyan );
+		graphics.setColor( Color.green );
 		graphics.drawRect(	Application.canvasX( m_BoundBox.x ),
 							Application.canvasY( m_BoundBox.y ),
 							m_BoundBox.width,
 							m_BoundBox.height );
+		graphics.drawLine(	Application.canvasX( m_BoundBox.x ),
+							Application.canvasY( m_BoundBox.y + 5 ),
+							Application.canvasX( m_BoundBox.x + m_BoundBox.width ),
+							Application.canvasY( m_BoundBox.y + 5 ) );
+		graphics.drawLine(	Application.canvasX( m_BoundBox.x ),
+							Application.canvasY( m_BoundBox.y + 10 ),
+							Application.canvasX( m_BoundBox.x + m_BoundBox.width ),
+							Application.canvasY( m_BoundBox.y + 10 ) );
 	}
 
 	// ディスパッチ処理

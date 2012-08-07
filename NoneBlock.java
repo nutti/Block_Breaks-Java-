@@ -1,23 +1,21 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-// 通常のブロック
+// 存在しないブロック
 
-public class NormalBlock extends Block
+public class NoneBlock extends Block
 {
-
 	// コンストラクタ
-	public NormalBlock( int row, int column )
+	public NoneBlock( int row, int column )
 	{
 		super();
 		m_BoundBox = new Rectangle(	column * ( WIDTH + INTERVAL_X ) + OFFSET_X,
 									row * ( HEIGHT + INTERVAL_Y ) + OFFSET_Y,
 									WIDTH, HEIGHT );
-		m_Reflectable = true;
-		m_Score = 100;
-		m_Destroyed = false;
+		m_Reflectable = false;
+		m_Score = 0;
+		m_Destroyed = true;
 	}
 
 	public void update()
@@ -32,12 +30,6 @@ public class NormalBlock extends Block
 		if( m_Destroyed ){
 			return;
 		}
-
-		graphics.setColor( Color.cyan );
-		graphics.drawRect(	Application.canvasX( m_BoundBox.x ),
-							Application.canvasY( m_BoundBox.y ),
-							m_BoundBox.width,
-							m_BoundBox.height );
 	}
 
 	// ディスパッチ処理

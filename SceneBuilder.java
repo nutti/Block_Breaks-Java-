@@ -12,11 +12,19 @@ public class SceneBuilder
 		SCENE_STAGE,		// ステージ画面
 	}
 
+	private ScoreManager		m_ScoreManager;		// スコア管理クラス
+
+	// コンストラクタ
+	public SceneBuilder( ScoreManager manager )
+	{
+		m_ScoreManager = manager;
+	}
+
 	// 新たなシーンを作成
 	public Scene createScene( SceneItem scene )
 	{
 		if( scene == SceneItem.SCENE_STAGE ){
-			return new Stage();
+			return new Stage( m_ScoreManager );
 		}
 		return null;
 	}

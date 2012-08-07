@@ -3,20 +3,19 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-// 通常のブロック
+// 壊れないブロック
 
-public class NormalBlock extends Block
+public class UnbreakableBlock extends Block
 {
-
 	// コンストラクタ
-	public NormalBlock( int row, int column )
+	public UnbreakableBlock( int row, int column )
 	{
 		super();
 		m_BoundBox = new Rectangle(	column * ( WIDTH + INTERVAL_X ) + OFFSET_X,
 									row * ( HEIGHT + INTERVAL_Y ) + OFFSET_Y,
 									WIDTH, HEIGHT );
 		m_Reflectable = true;
-		m_Score = 100;
+		m_Score = 0;
 		m_Destroyed = false;
 	}
 
@@ -33,11 +32,19 @@ public class NormalBlock extends Block
 			return;
 		}
 
-		graphics.setColor( Color.cyan );
+		graphics.setColor( Color.white );
 		graphics.drawRect(	Application.canvasX( m_BoundBox.x ),
 							Application.canvasY( m_BoundBox.y ),
 							m_BoundBox.width,
 							m_BoundBox.height );
+		graphics.drawLine(	Application.canvasX( m_BoundBox.x ),
+							Application.canvasY( m_BoundBox.y ),
+							Application.canvasX( m_BoundBox.x + m_BoundBox.width ),
+							Application.canvasY( m_BoundBox.y + m_BoundBox.height ) );
+		graphics.drawLine(	Application.canvasX( m_BoundBox.x + m_BoundBox.width ),
+							Application.canvasY( m_BoundBox.y ),
+							Application.canvasX( m_BoundBox.x ),
+							Application.canvasY( m_BoundBox.y + m_BoundBox.height ) );
 	}
 
 	// ディスパッチ処理
@@ -57,7 +64,6 @@ public class NormalBlock extends Block
 	// ボールとの衝突処理
 	protected void processCollision( Ball ball )
 	{
-		m_Destroyed = true;
 	}
 
 	// ブロックとの衝突処理

@@ -30,6 +30,7 @@ public class Application
 	FPSManager			m_FPSManager;		// FPS管理クラス
 	SceneBuilder		m_SceneBuilder;		// シーン構築クラス
 	Scene				m_Scene;			// シーン
+	ScoreManager		m_ScoreManager;		// スコア管理クラス
 
 	// 入力管理クラス
 	private InputManager		m_InputManager;		// 入力装置管理クラス
@@ -65,8 +66,12 @@ public class Application
 			// FPS管理クラスの作成
 			m_FPSManager = new FPSManager( 60 );	// 60 fps
 
+			// スコア管理クラス
+			m_ScoreManager = new ScoreManager();
+			m_ScoreManager.reset();
+
 			// シーン構築クラスの作成
-			m_SceneBuilder = new SceneBuilder();
+			m_SceneBuilder = new SceneBuilder( m_ScoreManager );
 			// 初期シーンの構築
 			m_Scene = m_SceneBuilder.createScene( SceneBuilder.SceneItem.SCENE_STAGE );
 

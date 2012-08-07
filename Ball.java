@@ -14,4 +14,9 @@ public abstract class Ball extends CollisionObject
 	{
 		m_Movable = true;
 	}
+
+	public boolean isMovable()
+	{
+		return m_Movable;
+	}
 }

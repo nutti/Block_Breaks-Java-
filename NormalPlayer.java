@@ -21,7 +21,7 @@ public class NormalPlayer extends Player
 
 	public void draw( Graphics graphics )
 	{
-		graphics.setColor( Color.GREEN );
+		graphics.setColor( Color.yellow );
 		graphics.drawRect(	Application.canvasX( m_BoundBox.x ),
 							Application.canvasY( m_BoundBox.y ),
 							m_BoundBox.width,
